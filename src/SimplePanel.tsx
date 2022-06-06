@@ -20,12 +20,12 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         `
       )}
     >
-      <svg
+      {/* <svg
         className={styles.svg}
         width={width}
         height={height}
         onClick={() => {
-          console.log("Clicked")
+          // console.log("Clicked")
           console.log(locationService.getLocation())
           // locationService.partial({"from": "1594671549256"}, true)
           // locationService.partial({"to": "1644671549256"}, true)
@@ -38,7 +38,15 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         <g>
           <circle style={{ fill: `${theme.isLight ? theme.palette.greenBase : theme.palette.yellow}` }} r={100} />
         </g>
-      </svg>
+      </svg> */}
+      <button onClick={() => {
+        console.log(locationService.getLocation())
+        locationService.partial({"from": "1594671549256"}, true)
+        locationService.partial({"to": "1644671549256"}, true)
+        locationService.reload()
+        // locationService.push({"from": "1594671549256", "to": "1644671549256", "orgId": 1})
+
+      }} className="css-1a8393j-button">Next</button>
 
       <div className={styles.textBox}>
         {options.showSeriesCount && (
