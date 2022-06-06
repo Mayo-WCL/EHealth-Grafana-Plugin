@@ -3,13 +3,19 @@ import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { locationService } from "@grafana/runtime"
-import { stylesFactory, useTheme } from '@grafana/ui';
-
+import { stylesFactory } from '@grafana/ui';
+import CSS from 'csstype';
 interface Props extends PanelProps<SimpleOptions> {}
 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const styles = getStyles();
+  const leftStyle: CSS.Properties = {
+    float: 'left',
+  }
+  const rightStyle: CSS.Properties = {
+    float: 'right',
+  }
   return (
     <div
       className={cx(
@@ -39,27 +45,32 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
           <circle style={{ fill: `${theme.isLight ? theme.palette.greenBase : theme.palette.yellow}` }} r={100} />
         </g>
       </svg> */}
-      <button onClick={() => {
-        console.log(locationService.getLocation())
-        locationService.partial({"from": "1594671549256"}, true)
-        locationService.partial({"to": "1644671549256"}, true)
-        locationService.reload()
-        // locationService.push({"from": "1594671549256", "to": "1644671549256", "orgId": 1})
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td width="50%">
+              <button onClick={() => {
+                console.log(locationService.getLocation())
+                locationService.partial({"from": "1594671549256"}, true)
+                locationService.partial({"to": "1644671549256"}, true)
+                locationService.reload()
+                // locationService.push({"from": "1594671549256", "to": "1644671549256", "orgId": 1})
 
-      }} className="css-1a8393j-button">Next</button>
+              }} style={leftStyle} className="css-1a8393j-button">Previous Interval</button>
+            </td>
+            <td width="50%">
+              <button onClick={() => {
+                console.log(locationService.getLocation())
+                locationService.partial({"from": "1594671549256"}, true)
+                locationService.partial({"to": "1644671549256"}, true)
+                locationService.reload()
+                // locationService.push({"from": "1594671549256", "to": "1644671549256", "orgId": 1})
 
-      <div className={styles.textBox}>
-        {options.showSeriesCount && (
-          <div
-            className={css`
-              font-size: ${theme.typography.size[options.seriesCountSize]};
-            `}
-          >
-            Number of series: {data.series.length}
-          </div>
-        )}
-        <div>Text option value: {JSON.stringify(data.timeRange)} </div>
-      </div>
+              }} style={rightStyle} className="css-1a8393j-button">Next Interval</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
