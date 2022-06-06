@@ -9,7 +9,9 @@
       "name": "Todd Rylaarsdam",
       "url": "https://thewcl.com"
     },
-    "keywords": [],
+    "keywords": [
+      "ehealth"
+    ],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"

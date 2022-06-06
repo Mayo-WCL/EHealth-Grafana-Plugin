@@ -2,6 +2,7 @@ import React from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
+import { locationService } from "@grafana/runtime"
 import { stylesFactory, useTheme } from '@grafana/ui';
 
 interface Props extends PanelProps<SimpleOptions> {}
@@ -23,12 +24,16 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         className={styles.svg}
         width={width}
         height={height}
+        onClick={() => {
+          console.log("Clicked")
+          locationService.partial({"v.timeRangeStart": new Date(1594671549254)}, true)
+        }}
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
       >
         <g>
-          <circle style={{ fill: `${theme.isLight ? theme.palette.greenBase : theme.palette.blue95}` }} r={100} />
+          <circle style={{ fill: `${theme.isLight ? theme.palette.greenBase : theme.palette.yellow}` }} r={100} />
         </g>
       </svg>
 
