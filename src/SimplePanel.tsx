@@ -7,7 +7,7 @@ import { stylesFactory } from '@grafana/ui';
 import CSS from 'csstype';
 interface Props extends PanelProps<SimpleOptions> {}
 
-export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
+export const SimplePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
   // const theme = useTheme();
   const styles = getStyles();
   const leftStyle: CSS.Properties = {
@@ -32,11 +32,17 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
             <td width="50%">
               <button
                 onClick={() => {
-                  console.log(locationService.getLocation());
-                  locationService.partial({ from: '1594671549256' }, true);
-                  locationService.partial({ to: '1644671549256' }, true);
+                  const from = parseInt(replaceVariables('$__from'), 10);
+                  const to = parseInt(replaceVariables('$__to'), 10);
+                  // console.log(locationService.getLocation());
+                  // console.log(from, to);
+
+                  var newFrom = from - (to - from);
+                  var newTo = from;
+
+                  locationService.partial({ from: newFrom.toString() }, true);
+                  locationService.partial({ to: newTo.toString() }, true);
                   locationService.reload();
-                  // locationService.push({"from": "1594671549256", "to": "1644671549256", "orgId": 1})
                 }}
                 style={leftStyle}
                 className="css-1a8393j-button"
@@ -47,9 +53,16 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
             <td width="50%">
               <button
                 onClick={() => {
-                  console.log(locationService.getLocation());
-                  locationService.partial({ from: '1594671549256' }, true);
-                  locationService.partial({ to: '1644671549256' }, true);
+                  const from = parseInt(replaceVariables('$__from'), 10);
+                  const to = parseInt(replaceVariables('$__to'), 10);
+                  // console.log(locationService.getLocation());
+                  // console.log(from, to);
+
+                  var newFrom = to;
+                  var newTo = to + (to - from);
+
+                  locationService.partial({ from: newFrom.toString() }, true);
+                  locationService.partial({ to: newTo.toString() }, true);
                   locationService.reload();
                   // locationService.push({"from": "1594671549256", "to": "1644671549256", "orgId": 1})
                 }}
